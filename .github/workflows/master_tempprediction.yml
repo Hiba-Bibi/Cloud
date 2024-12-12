@@ -19,14 +19,17 @@ jobs:
           java-version: '17'
           distribution: 'microsoft'
 
+      - name: List project files
+        run: ls -la ./p02-TempPrediction-Cloud
+
       - name: Build with Maven
-        run: mvn clean install
+        run: mvn -f ./p02-TempPrediction-Cloud/pom.xml clean install
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: java-app
-          path: './target/*.war' # Chemin mis à jour si nécessaire
+          path: './p02-TempPrediction-Cloud/target/*.war'
 
   deploy:
     runs-on: windows-latest
@@ -56,4 +59,4 @@ jobs:
         with:
           app-name: 'TempPrediction'
           slot-name: 'Production'
-          package: './*.war' # Vérifiez ici si le fichier est téléchargé correctement
+          package: './*.war'
