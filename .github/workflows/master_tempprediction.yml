@@ -1,3 +1,6 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
 name: Build and deploy WAR app to Azure Web App - TempPrediction
 
 on:
@@ -19,11 +22,9 @@ jobs:
           java-version: '17'
           distribution: 'microsoft'
 
-      - name: List project files
-        run: ls -la ./p02-TempPrediction-Cloud
-
       - name: Build with Maven
-        run: mvn -f ./p02-TempPrediction-Cloud/pom.xml clean install
+        working-directory: ./p02-TempPrediction-Cloud
+        run: mvn clean install
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -38,7 +39,7 @@ jobs:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
-      id-token: write
+      id-token: write # This is required for requesting the JWT
 
     steps:
       - name: Download artifact from build job
@@ -49,9 +50,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_F24DA528E70547AD80C9463AAFBE0703 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_49F1D3FE30BE4FE2A7A54C5F1ABF1D80 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_CA18644C0B8E43C0BB263E90D28B974F }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
@@ -59,4 +60,4 @@ jobs:
         with:
           app-name: 'TempPrediction'
           slot-name: 'Production'
-          package: './*.war'
+          package: './p02-TempPrediction-Cloud/target/*.war'
