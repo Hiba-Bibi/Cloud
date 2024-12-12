@@ -1,0 +1,41 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.mql.dev</groupId>
+  <artifactId>p02-TempPrediction-Cloud</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+  <name>p02-TempPrediction-Cloud</name>
+  
+  
+  <dependencies>
+    <!-- Weka stable 3.8.6 -->
+    <dependency>
+        <groupId>nz.ac.waikato.cms.weka</groupId>
+        <artifactId>weka-stable</artifactId>
+        <version>3.8.6</version>
+    </dependency>
+
+    <!-- Bounce 0.18 -->
+   <!-- https://mvnrepository.com/artifact/nz.ac.waikato.cms.weka.thirdparty/bounce -->
+	<dependency>
+	    <groupId>nz.ac.waikato.cms.weka.thirdparty</groupId>
+	    <artifactId>bounce</artifactId>
+	    <version>0.18</version>
+	</dependency>
+
+
+    <!-- https://mvnrepository.com/artifact/com.googlecode.matrix-toolkits-java/mtj -->
+	<dependency>
+	    <groupId>com.googlecode.matrix-toolkits-java</groupId>
+	    <artifactId>mtj</artifactId>
+	    <version>1.0.4</version>
+	</dependency>
+    
+    <dependency>
+    <groupId>jakarta.servlet</groupId>
+    <artifactId>jakarta.servlet-api</artifactId>
+    <version>5.0.0</version>
+    <scope>provided</scope> <!-- Le serveur web comme Tomcat fournit déjà cette dépendance -->
+</dependency>	
+  </dependencies>
+</project>
