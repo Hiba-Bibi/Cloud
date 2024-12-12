@@ -1,0 +1,15 @@
+@relation temperature
+
+@attribute temperature NUMERIC
+@attribute temp_category {low, medium, high}
+
+@data
+20, low
+25, medium
+25, medium
+25, medium
+30, high
+35, high
+40, high
+15, low
+10, low
