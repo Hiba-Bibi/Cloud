@@ -20,7 +20,7 @@ jobs:
           distribution: 'microsoft'
 
       - name: Build with Maven
-        run: mvn -f cloud/p02-TempPrediction-Cloud/pom.xml clean install -X
+        run: mvn -f /p02-TempPrediction-Cloud/pom.xml clean install -X
 
 
       - name: Upload artifact for deployment job
