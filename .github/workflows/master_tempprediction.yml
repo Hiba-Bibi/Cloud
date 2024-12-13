@@ -11,17 +11,25 @@ jobs:
     runs-on: windows-latest
 
     steps:
+      # 1. Checkout the code
       - uses: actions/checkout@v4
 
+      # 2. Set up Java version
       - name: Set up Java version
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'microsoft'
 
+      # 3. Build with Maven
       - name: Build with Maven
         run: mvn -f ./p02-TempPrediction-Cloud/pom.xml clean package
 
+      # 4. List target directory to verify .war generation
+      - name: List target directory
+        run: dir ./p02-TempPrediction-Cloud/target
+
+      # 5. Upload artifact for deployment job
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
@@ -38,18 +46,21 @@ jobs:
       id-token: write
 
     steps:
+      # 1. Download artifact from build job
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
           name: java-app
-      
+
+      # 2. Login to Azure
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_F530B0362E9B43C89131788CFC146DEE }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_86CF06D3109842C3A9FC5D2FFEC0B33D }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_D4CB8BF74F7B45068459EFB42F8D55C4 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID }}
 
+      # 3. Deploy to Azure Web App
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
